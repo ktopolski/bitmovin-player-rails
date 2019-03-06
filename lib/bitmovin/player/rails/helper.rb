@@ -21,7 +21,7 @@ module Bitmovin::Player::Rails
 
 			version = Rails.configuration.bitmovin_player["version"]
 			setup = "bitmovin.player"
-			setup = "bitdash" if version.include?("5")
+			setup = "bitdash" if Gem::Version.correct?(version) && Gem::Version.new(version).canonical_segments.first.eql?(5)
 
 			options[:key] = Rails.configuration.bitmovin_player["license_key"]
 

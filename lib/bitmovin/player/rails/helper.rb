@@ -18,6 +18,7 @@ module Bitmovin::Player::Rails
 			options[:source][:hls] = options[:source][:hls] || options.delete(:hls) if (options[:source][:hls] || options[:hls])
 			options[:source][:progressive] = options[:source][:progressive] || options.delete(:progressive) if (options[:source][:progressive] || options[:progressive])
 			options[:source][:poster] = options[:source][:poster] || options.delete(:poster) if (options[:source][:poster] || options[:poster])
+			options[:style][:ux] = true
 
 			version = Rails.configuration.bitmovin_player["version"]
 			setup = "bitmovin.player"
@@ -31,6 +32,7 @@ module Bitmovin::Player::Rails
 		var conf = #{JSON.pretty_generate(options)};
 		var player = #{setup}("#{container}");
 		player.setup(conf).then(function(value) {
+		bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
 				// Success
 				console.log("Successfully created bitmovin player instance");
 		}, function(reason) {
